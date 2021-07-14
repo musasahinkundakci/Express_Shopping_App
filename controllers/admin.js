@@ -4,11 +4,7 @@ const fs = require("fs");
 // const User = require("../models/user");
 exports.getProducts = (req, res) => {
   Product.find({ userId: req.user._id })
-    .populate("userId", "name -_id") //populate dediğimzde referansın gösterdigi yerdeki gerçeği alır ikinci paramtre seçmek isteğdimz alanlar id yi istemdğimz için başına eksi koyduk default olarak gelir çünkü
-    //.limit(10) kayıtlardan 10 tanesi
-    //.select({name:1,price:1}) sadece name ve price gelcek ya da istemdğimze 0 versek gerisi gelir
-    //select("name price userId") de olur
-    //.sort({name:1}) gelen ürünleri name e göre sıralar eğer z den a ya yani ters için -1 yaparz
+    .populate("userId", "name -_id") 
     .then((products) => {
       return res.render("admin/products", {
         title: "Admin Products",
@@ -128,19 +124,9 @@ exports.postEditProduct = (req, res, next) => {
     })
     .then(() => res.redirect("/admin/products?action=edit"))
     .catch((err) => console.log(err));
-  //update first
-  /*
-  Product.updateOne(
-    { _id: _id },
-    {
-      $set: product,
-    }
-  )
-    .then(() => res.redirect("/admin/products?action=edit"))
-    .catch((err) => console.log(err));*/
-};
+
 exports.postDeleteProduct = (req, res, next) => {
-  //istedğimz koşul olablr .deleteOne({ _id: req.body.productid })
+
   Product.findById(req.body.productid)
     .then((product) => {
       if (product.image) {
@@ -148,8 +134,8 @@ exports.postDeleteProduct = (req, res, next) => {
           if (err) console.log(err + "ım here");
         });
       } else if (!product) {
-        return next(new Error("Silinmek istenen ürün bulunamadı!")); //eror middle waredan yakalybtl bunu app
-        //de yakalıyp consoole yazdırablrz
+        return next(new Error("Silinmek istenen ürün bulunamadı!"));
+  
       }
     })
     .then(() =>

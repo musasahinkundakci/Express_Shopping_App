@@ -1,0 +1,22 @@
+extends ../layouts/main-layout
+
+block content 
+    form(action="/register" method="POST")
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            .form-group.row
+              label(for="text").col-sm-2.col-form-label Name
+              .col-sm-5
+                input(type="text" name="name" required).form-control
+            .form-group.row
+              label(for="email").col-sm-2.col-form-label E-mail
+              .col-sm-5
+                input(type="text" name="email" required).form-control
+            .form-group.row
+              label(for="password").col-sm-2.col-form-label Password
+              .col-sm-5
+                input(type="password" name="password" required).form-control
+
+            .form-group.row
+
+              .col-sm-10.offset-sm-2
+                input(type="submit" name="" value="Register").btn.btn-primary

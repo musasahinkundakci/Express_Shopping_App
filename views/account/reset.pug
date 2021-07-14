@@ -1,0 +1,15 @@
+extends ../layouts/main-layout
+
+block content 
+    form(action="/register" method="POST")
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            .form-group.row
+              label(for="email").col-sm-2.col-form-label E-mail
+              .col-sm-10
+                input(type="email" name="email" required).form-control
+
+
+            .form-group.row
+
+              .col-sm-10.offset-sm-2
+                input(type="submit" name="" value="Send").btn.btn-primary

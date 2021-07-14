@@ -1,0 +1,14 @@
+.pt-100 {
+  padding-top: 100px;
+}
+.items {
+  background: none;
+}
+.items:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.items:active,
+.items:focus {
+  outline: none;
+}

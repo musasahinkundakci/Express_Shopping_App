@@ -1,0 +1,56 @@
+extends ../layouts/main-layout
+
+block content 
+    if(action =="edit")
+        div.alert.alert-success The product has been updated 
+    if(action=="delete")
+        div.alert.alert-danger The product has been deleted     
+    .row
+        if products.length>0
+            table.table.table-bordered 
+                thead 
+                    tr 
+                        th(style="width:100px") Image 
+                        th Product Name 
+                        th(style="width:150px") Price 
+                        th Quantity
+                        th 
+                        th(style="width:133px") 
+                tbody 
+                    each product in products 
+                        tr 
+                            td 
+                                img(src=`/img/${product.productid.image }`, alt="" width="80")
+                            td #{product.productid.name}
+                            td #{product.productid.price} TL
+                            td #{product.quantity}
+                            td 
+                                form(action="/change-quantity" method="POST")
+                                     input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                                     input(type="hidden" value=`${product.productid._id}` name="productid")
+                                     input(type="hidden" value=`+1` name="quantityChange")
+                                     button(type="submit" style="border:none;color:#d35400").fas.fa-plus.fa-2x.items
+                                form(action="/change-quantity" method="POST")
+                                     input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                                     input(type="hidden" value=`${product.productid._id}` name="productid")
+                                     input(type="hidden" value=`-1` name="quantityChange")
+                                     button(type="submit" style="border:none;color:#2980b9").fas.fa-minus.fa-2x.items
+                            td  
+                                
+                                form(action="/delete-cartitem" method="POST")
+                                    input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                                    input(type="hidden" value=`${product.productid._id}` name="productid")
+                                    button(type="submit").btn.btn-danger.btn-sm.mt-1 Delete   
+                tfoot 
+                    td(colspan="2")
+                    -var total=0;
+                    each product in products    
+                        -total+=(product.productid.price*product.quantity)
+                    td #{total}
+            .position-relative
+                a(href="/").btn.btn-primary.mr-3.mb-1 Continue to Shopping 
+                form(action="/create-order" method="POST") 
+                    input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                    button(type="submit").btn.btn-primary Order the Products
+        else
+            h1 No products!

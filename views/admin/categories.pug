@@ -1,0 +1,29 @@
+extends ../layouts/main-layout
+
+block content 
+    if action=="insert"
+        div.alert.alert-success The category has been inserted!
+    if action=="edit"
+        div.alert.alert-success The category has been updated!
+    if action=="delete"
+        div.alert.alert-success The category has been deleted!
+    .row 
+        if categories.length>0 
+            table.table.table-borderles 
+                thead 
+                    th(style="width:150px") Name 
+                    th  Description 
+                    th(style="width:150px") 
+                tbody 
+                    each category in categories 
+                        tr 
+                            td #{category.name}
+                            td #{category.description}
+                            td 
+                                a(href=`/admin/edit-category/${category._id}`).btn.btn-primary.mb-1 Edit
+                                form(action="/admin/delete-category" method="POST")
+                                    input(type="hidden" name="_id" value=`${category._id}`)
+                                    button(type="submit").btn.btn-danger Delete
+
+        else
+            div.alert.alert-danger(style="width:100%;text-align:center;font-size:1.5rem") There is no categories!

@@ -1,0 +1,30 @@
+extends ../layouts/main-layout
+
+block content 
+
+    .row
+        if orders.length>0
+            each order in orders
+                table.table.table-bordered 
+                    thead 
+                        tr 
+                            th(style="width:100px") Image 
+                            th Product Name 
+                            th(style="width:150px") Price 
+                            th(style="width:100px") Quantity
+                           
+                            
+                    tbody 
+                        each product in order.items 
+
+                                tr 
+                                    td 
+                                        img(src=`/img/${product.product.image }`, alt="" width="80")
+                                    td #{product.product.name}
+                                    td #{product.product.price} TL
+                                    td #{product.quantity}
+                                    
+                    
+
+        else
+            h1 No Orders!

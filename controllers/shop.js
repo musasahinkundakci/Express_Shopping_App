@@ -4,26 +4,9 @@ const User = require("../models/user");
 const Order = require("../models/order");
 
 exports.getIndex = (req, res, next) => {
-  //eq(equal)
-  //ne(not equal)
-  //gt(greater than)
-  //gte(not greater than or eqauş)
-  //lt(less than)
-  //lte(not less than or eqau)
-  //in array içinde olaan eleamnları getir
-  //not in
-  //find({ price: { $eq: 2000 } })
-  //find({ price: { $gt: 2000 ,$lt:4000} })
-  //find({ price: { $gt: 2000 ,$lt:4000} },name:"Samsung") or yapsıı için find den sonra bir or ekliyorz dizi şeklinde
-  //find().or([{ price: { $gt: 2000 ,$lt:4000} },name:"Samsung"])
-  //Samsung:
-  //starts with
-  //find({name:/^Samsung/}) samsungla başlasın sonu önemsiz
-  //find({name:/Samsung$/}) sonu illa samsungla bitcek
-  //find({name:/.*Samsung.*/})samsung herhangi bir yerde geçblr
+
   let products;
-  //null dönd console.log(req.isAuthenticated);
-  //console.log(req.cookies.isAuthenticated);
+
 
   Product.find()
     .then((products) => {
@@ -71,17 +54,7 @@ exports.getProduct = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
-  /*
-  const productId = req.params.productid;
-  Product.findByPk(productId)
-    .then((product) => {
-      res.render("shop/product-detail", {
-        product: product,
-        title: product.name,
-        path: "/products",
-      });
-    })
-    .catch((err) => console.log(err));*/
+
 };
 exports.getProductDetails = (req, res, next) => {
   res.render("shop/details", {
